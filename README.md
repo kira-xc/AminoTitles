@@ -5,7 +5,7 @@ titles changer in amino
 ```
 apt install python -y
 apt install git -y
-pip install Amino.py
+pip install amino.fix
 git clone https://github.com/kira-xc/AminoTitles
 ```
 
