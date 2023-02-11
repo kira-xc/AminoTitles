@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-import amino
+import aminofix as amino
 import os
-import getpass
 os.system('clear')
 print("\033[1;32m  /$$$$$$$$ /$$   /$$     /$$                                          ")
 print("\033[1;32m |__  $$__/|__/  | $$    | $$                                          ")
@@ -35,11 +34,12 @@ tst=False
 while tst==False:
     try:
         email=input("\033[1;93m# your email : \033[0m")
-        password=getpass.getpass("\033[1;93m# your password : \033[0m")
+        password=input("\033[1;93m# your password : \033[0m")
         client.login(email=email,password=password)
         tst=True
-    except:
+    except Exception as e:
         tst=False
+        print(e)
         print("\033[1;93m# verify email or password\033[0m")
         exx=input("\033[1;93m# to be continue ?\033[1;92m y/n \033[0m: \033[0m")
         if exx=='n' or exx=='N' or exx=='no':
@@ -91,6 +91,7 @@ if swich==1:
             print(str(cptt)+") - "+title.get("title") + " color : ",title.get("color"))
         print("\033[0m")
         r=True
+        
         while r ==True:
             choo=int(input("\033[1;93mchoose your title for change color :\033[0m"))
             colo=input("\033[1;93myour color ? ex : #ffffff : \033[0m")
@@ -98,7 +99,12 @@ if swich==1:
             if ss=="y":
                 r=False
         titless[choo-1]['color']=colo
-        sub_client.edit_profile(titles=titless)
+        tt=[]
+        cc=[]
+        for t in titless:
+            tt.append(t["title"])
+            cc.append(t["color"])
+        sub_client.edit_profile(titles=tt,colors=cc)
     else:
         print(" \033[1;93myou not have titles !\033[0m")
 elif swich==2:
@@ -106,13 +112,15 @@ elif swich==2:
     if role==102 or role==100:
       maxo=int(input ("\033[1;93mhow max of title need ? :\033[0m"))
       titlez=[]
+      colorz=[]
       mxo=0
       for mxo in range(0,maxo,1):
           title=input("\033[1;93myour title nember "+str(mxo)+" ? :\033[0m")
           color=input ("\033[1;93myour color of title nember "+str(mxo)+" ? ex :#000000 : \033[0m")
-          titled={"title":title,"color":color}
-          titlez.append(titled)
-      sub_client.edit_profile(titles=titlez)    
+          titlez.append(title)
+          colorz.append(color)
+          
+      sub_client.edit_profile(titles=titlez,colors=color)    
     else:
         print("\033[1;93mtwakal 3ala allah , you are not a leader !!!\033[0m")
 os._exit(1)
